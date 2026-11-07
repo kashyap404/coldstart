@@ -1,0 +1,91 @@
+{
+  "bound": 12,
+  "cases": [
+    {
+      "name": "pipe5",
+      "file": "rtl/cases/pipe5.sv",
+      "class": "structural",
+      "property": "output valid implies the pipeline was fed",
+      "expect": { "init": "PASS", "noinit": "FAIL" },
+      "fixed": {
+        "name": "pipe5_fixed",
+        "file": "rtl/fixed/pipe5.sv",
+        "expect": { "init": "PASS", "noinit": "PASS" }
+      },
+      "note": "Five valid stages, no reset. Arbitrary valid bits inject a token."
+    },
+    {
+      "name": "decade_counter",
+      "file": "rtl/cases/decade_counter.sv",
+      "class": "unrecoverable",
+      "property": "cnt <= 9",
+      "expect": { "init": "PASS", "noinit": "FAIL" },
+      "fixed": {
+        "name": "decade_counter_fixed",
+        "file": "rtl/fixed/decade_counter.sv",
+        "expect": { "init": "PASS", "noinit": "PASS" }
+      },
+      "note": "An out-of-range power-up value never heals."
+    },
+    {
+      "name": "ring_fsm",
+      "file": "rtl/cases/ring_fsm.sv",
+      "class": "unrecoverable",
+      "property": "state is exactly one-hot",
+      "expect": { "init": "PASS", "noinit": "FAIL" },
+      "fixed": {
+        "name": "ring_fsm_fixed",
+        "file": "rtl/fixed/ring_fsm.sv",
+        "expect": { "init": "PASS", "noinit": "PASS" }
+      },
+      "note": "A ring rotation cannot repair an invalid start state."
+    },
+    {
+      "name": "fifo_count",
+      "file": "rtl/cases/fifo_count.sv",
+      "class": "redundant state",
+      "property": "count == wr_ptr - rd_ptr",
+      "expect": { "init": "PASS", "noinit": "FAIL" },
+      "fixed": {
+        "name": "fifo_count_fixed",
+        "file": "rtl/fixed/fifo_count.sv",
+        "expect": { "init": "PASS", "noinit": "PASS" }
+      },
+      "note": "Pointers and occupancy start unrelated."
+    },
+    {
+      "name": "gray_counter",
+      "file": "rtl/cases/gray_counter.sv",
+      "class": "redundant state",
+      "property": "gray == enc(bin)",
+      "expect": { "init": "PASS", "noinit": "FAIL" },
+      "fixed": {
+        "name": "gray_counter_fixed",
+        "file": "rtl/fixed/gray_counter.sv",
+        "expect": { "init": "PASS", "noinit": "PASS" }
+      },
+      "note": "The registered Gray copy can start unrelated to bin."
+    },
+    {
+      "name": "grant_arbiter",
+      "file": "rtl/cases/grant_arbiter.sv",
+      "class": "transient",
+      "property": "grants are never both asserted",
+      "expect": { "init": "PASS", "noinit": "FAIL" },
+      "fixed": {
+        "name": "grant_arbiter_fixed",
+        "file": "rtl/fixed/grant_arbiter.sv",
+        "expect": { "init": "PASS", "noinit": "PASS" }
+      },
+      "note": "One pre-edge cycle of collision; a sticky monitor makes it visible."
+    },
+    {
+      "name": "robust_counter",
+      "file": "rtl/cases/robust_counter.sv",
+      "class": "control",
+      "property": "safe <= 9",
+      "expect": { "init": "PASS", "noinit": "PASS" },
+      "note": "Sanitized control: init-independent by construction."
+    }
+  ]
+}
