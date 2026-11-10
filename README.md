@@ -29,7 +29,7 @@ then the usual library paths. It does not download anything.
 If you do not have CIRCT, download a prebuilt release from
 <https://github.com/llvm/circt/releases>. Put its `bin` directory on `PATH`,
 or unpack it under `.tools/circt`. You can also put local paths in
-`local.mk`. Git ignores that file.
+`local.mk`. 
 
 `make list` shows the cases. `make check-case CASE=pipe5` runs one, and
 `make cex CASE=pipe5` prints its no-init counterexample.
@@ -48,8 +48,7 @@ The checks below use bound 12:
 | `grant_arbiter` | transient | grants are never both asserted | PASS | FAIL | PASS |
 | `robust_counter` | control | `safe <= 9` | PASS | PASS | - |
 
-PASS means the tool found no violation up to the bound. It is not a proof.
-The bounds are in `cases.json`.
+PASS means the tool found no violation up to the bound. 
 
 ## The pipeline case
 
@@ -119,8 +118,6 @@ option](https://veripool.org/guide/latest/exe_verilator.html) randomizes
 uninitialized state in simulation, so it finds some of these bugs but does
 not cover every state.
 
-`coldstart` does not add a new solver. Its job is the two runs and the
-comparison.
 
 ## Limits
 
